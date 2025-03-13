@@ -312,7 +312,7 @@ const products = [
     type: "clothing",
     sizeChartLink: "images/clothing-size-chart.png"
   },
-  {
+  { //next
     id: "a93a101d-79ef-4cf3-a6cf-6dbe532a1b4a",
     image: "images/products/bathroom-rug.jpg",
     name: "Bathroom Bath Rug Mat 20 x 31 Inch - Grey",

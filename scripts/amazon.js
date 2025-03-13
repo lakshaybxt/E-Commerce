@@ -75,7 +75,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -90,8 +90,12 @@ products.forEach((product) => {
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  //by using a closure we are giving each a unique id
+    let addedMessageTImeoutId;
+
     button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
+        // const productId = button.dataset.productId;
+        const {productId} = button.dataset;
         //Here we are looping in the cart array to find out that the product is exist in the cart if it is we increase the quantity
         let matchingItem;
         cart.forEach((item) => {
@@ -106,19 +110,30 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         if(matchingItem) {
           matchingItem.quantity += quantity;
         } else {
-          cart.push({
-            productId: productId,
-            quantity: quantity
-          });
+          cart.push({ productId, quantity });
         }
 
         let cartQuantity = 0;
         cart.forEach((item) => {
           cartQuantity += item.quantity;
         });
-
+        
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
         //Reset the quantity selector again
         quantitySelector.value = 1;
+
+        const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+        addedMessage.classList.add('added-to-cart-visible');
+
+        if(addedMessageTImeoutId) {
+          clearTimeout(addedMessageTImeoutId);
+        }
+        
+        const timeoutId = setTimeout(() => {
+          addedMessage.classList.remove('added-to-cart-visible');
+        }, 2000);
+
+        addedMessageTImeoutId = timeoutId;
     });
 });
