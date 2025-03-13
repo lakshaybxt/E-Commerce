@@ -1,4 +1,4 @@
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js'
 // const products = [{
 //     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
@@ -91,38 +91,26 @@ products.forEach((product) => {
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
+function updateCarrtQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   //by using a closure we are giving each a unique id
     let addedMessageTImeoutId;
 
     button.addEventListener('click', () => {
         // const productId = button.dataset.productId;
-        const {productId} = button.dataset;
-        //Here we are looping in the cart array to find out that the product is exist in the cart if it is we increase the quantity
-        let matchingItem;
-        cart.forEach((item) => {
-          if(productId === item.productId) {
-            matchingItem = item
-          }
-        })
+        const {productId} = button.dataset;  
 
-        const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-        const quantity = Number(quantitySelector.value);
-
-        if(matchingItem) {
-          matchingItem.quantity += quantity;
-        } else {
-          cart.push({ productId, quantity });
-        }
-
-        let cartQuantity = 0;
-        cart.forEach((item) => {
-          cartQuantity += item.quantity;
-        });
-        
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-        //Reset the quantity selector again
-        quantitySelector.value = 1;
+        addToCart(productId);
+        updateCarrtQuantity();
 
         const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
 
