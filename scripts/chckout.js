@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -107,5 +107,11 @@ document.querySelectorAll('.js-delete-quantity-link')
             
             const container =  document.querySelector(`.js-item-container-${productId}`)
             container.remove(container);    
+            updateCartQuantity();
         });
-    })
+    });
+
+const cartQuantity = updateCartQuantity();
+document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
+
+updateCartQuantity();

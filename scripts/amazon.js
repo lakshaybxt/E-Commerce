@@ -1,4 +1,4 @@
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, updateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js'
 import { formatCurrency } from './utils/money.js';
 // const products = [{
@@ -34,7 +34,7 @@ import { formatCurrency } from './utils/money.js';
 //     },
 //     price: 1899
 // }];
-
+updateCartQuantity();
 let productsHTML = ``;
 
 products.forEach((product) => {
@@ -92,14 +92,8 @@ products.forEach((product) => {
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
-function updateCarrtQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-}
+const cartQuantity = updateCartQuantity();
+document.querySelector('.js-cart-quantity').innerHTML =  cartQuantity;
 
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
@@ -111,7 +105,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         const {productId} = button.dataset;  
 
         addToCart(productId);
-        updateCarrtQuantity();
+        updateCartQuantity();
 
         const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
 
