@@ -214,7 +214,7 @@
   display: none;
 }
 .save-quantity-link {
-  display: nones;
+  display: none;
 }
 /* reset the upper both display none value to it's original value*/
 .is-editing-quantity .quantity-input,
