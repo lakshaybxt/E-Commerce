@@ -6,6 +6,16 @@ import { loadProductsFetch } from '../data/products.js';
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
+async function loadPage() {
+    await loadProductsFetch ();
+
+    renderCheckoutHeader();
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage();
+
+/*
 Promise.all([
     loadProductsFetch (),
     // new Promise((resolve) => {
@@ -19,3 +29,4 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 });
+*/
