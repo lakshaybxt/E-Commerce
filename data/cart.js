@@ -28,7 +28,9 @@ export function addToCart(productId) {
   });
 
   const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-  const quantity = Number(quantitySelector.value);
+  // console.log(quantitySelector);
+  const quantity = quantitySelector ? Number(quantitySelector.value) : 1;
+  // console.log(quantity);
 
   if(matchingItem) {
     matchingItem.quantity += quantity;
@@ -40,7 +42,9 @@ export function addToCart(productId) {
      });
   }
   //Reset the quantity selector again
-  quantitySelector.value = 1;
+  if(quantitySelector) {
+    quantitySelector.value = 1;
+  }
 
   saveToStorage();
 };
@@ -93,10 +97,10 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   saveToStorage();
 }
 
-export async function loadCartFetch() {
-  const response = await fetch('https://supersimplebackend.dev/cart');
-  const text = await response.text();
-  console.log(text);
+// export async function loadCartFetch() {
+//   const response = await fetch('https://supersimplebackend.dev/cart');
+//   const text = await response.text();
+//   console.log(text);
 
-  return text;
-}
+//   return text;
+// }
