@@ -97,6 +97,11 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   saveToStorage();
 }
 
+export function resetCart() {
+  cart = [];
+  saveToStorage();
+}
+
 // export async function loadCartFetch() {
 //   const response = await fetch('https://supersimplebackend.dev/cart');
 //   const text = await response.text();
